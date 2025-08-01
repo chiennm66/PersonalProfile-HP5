@@ -24,17 +24,65 @@ struct ProfileView: View {
     )
     var body: some View {
         ScrollView{
-            VStack{
+            VStack(spacing: 30){
                 ProfileHeaderView(name: user.name, avatar: user.avatar)
                 
                 VStack(alignment: .leading){
                     Text("HOÀN THÀNH HỒ SƠ")
                         .font(.headline)
                     ProgressBarView(value: $user.profileCompletion)
-                    
-                    // XONG CHAT LÊN MỤC CHAT NHA - TỚI 19H20'
+
                 }
                 .padding(.horizontal)
+                
+                
+                // Information Section
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("Thông tin cá nhân")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .padding(.bottom, 5)
+                    
+                    HStack {
+                        Text("Họ tên:")
+                            .foregroundColor(.secondary)
+                        Spacer()
+                        Text(user.name)
+                            .fontWeight(.medium)
+                    }
+                    Divider()
+                    
+                    HStack {
+                        Text("Email:")
+                            .foregroundColor(.secondary)
+                        Spacer()
+                        Text(user.email)
+                            .fontWeight(.medium)
+                    }
+                    Divider()
+                    
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Sở thích:")
+                            .foregroundColor(.secondary)
+                        
+                        HStack {
+                            ForEach(user.interests, id: \.self) { interest in
+                                Text(interest)
+                                    .font(.caption)
+                                    .padding(.horizontal, 10)
+                                    .padding(.vertical, 5)
+                                    .background(Color.blue.opacity(0.1))
+                                    .cornerRadius(10)
+                            }
+                        }
+                    }
+                }
+                .padding()
+                .background(Color(.secondarySystemBackground))
+                .cornerRadius(15)
+                .padding(.horizontal)
+                
+                
             }
         }
     }
